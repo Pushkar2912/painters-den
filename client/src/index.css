@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mainText {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
