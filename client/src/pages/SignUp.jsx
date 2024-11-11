@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Fields from '../components/custom/Fields'
 import painterDenImage from '../assets/painterDenSignUpImage.jpg'
+import { AuthContext } from '../context/AuthContextProvider';
 
 
 const SignUp = () => {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const { handleSignUp } = useContext(AuthContext);
+
+    const handleNameChange = (e) => {
+        setName(e.target.value)
+    }
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value)
+    }
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const values = {
+            name,
+            email,
+            password
+        }
+       handleSignUp(values);
+    }
     return (
 
         <div className='flex'>
@@ -11,24 +40,25 @@ const SignUp = () => {
                 <img src={painterDenImage} className='max-h-screen h-full w-full' />
             </div>
             <div className='flex-1 flex items-center justify-center'>
-                <form className='w-full p-4 flex flex-col gap-8'>
+                <div className='w-full p-4 flex flex-col gap-8'>
                     <p className='mainText flex justify-center items-center font-bold text-4xl bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% ...'>PaintersDen</p>
-                    <div className='flex flex-col gap-3'>
+                    <form className='flex flex-col gap-3' onSubmit={handleSubmit}>
                         <Fields>
                             <label className='text-sm'>Name</label>
-                            <input className='border border-gray-300 p-2 rounded-md' type="text" />
+                            <input className='border border-gray-300 p-2 rounded-md' type="text" value={name} onChange={handleNameChange} />
                         </Fields>
                         <Fields>
                             <label className='text-sm'>E-mail</label>
-                            <input className='border border-gray-300 p-2 rounded-md' type="text" />
+                            <input className='border border-gray-300 p-2 rounded-md' type="text" value={email} onChange={handleEmailChange} />
                         </Fields>
                         <Fields>
                             <label className='text-sm'>Password</label>
-                            <input className='border border-gray-300 p-2 rounded-md' type="password" />
+                            <input className='border border-gray-300 p-2 rounded-md' type="password" value={password} onChange={handlePasswordChange} />
                         </Fields>
-                    </div>
-                    <button className='bg-blue-500 text-slate-100 font-medium w-full rounded-md p-2' type='submit'>Submit</button>
-                </form>
+                        <button className='bg-blue-500 text-slate-100 font-medium w-full rounded-md p-2' type='submit'>Submit</button>
+                    </form>
+                    
+                </div>
             </div>
         </div>
 
